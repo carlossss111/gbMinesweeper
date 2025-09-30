@@ -9,7 +9,7 @@ EXE=minesweeper.gb
 MAP=minesweeper.map
 
 ASM_FLAGS=-Wall -I src/include
-L_FLAGS=-Wall -n bin/minesweeper.sym --dmg --wramx --tiny
+L_FLAGS=-Wall --linkerscript linker.ld -n bin/minesweeper.sym --dmg --wramx --tiny
 F_FLAGS=-Wall -c --mbc-type 0x00 --ram-size 0x00 --title 'Minesweeper' -j -v -p 0xFF
 
 rwildcard=$(foreach d,\
@@ -36,7 +36,7 @@ run-sameboy: compile
 	sameboy $(BIN_DIR)/$(EXE)
 
 map:
-	rgbasm src $(ASM_FLAGS) -o $(BIN_DIR)/$(OBJ)
-	rgblink $(OBJ) $(L_FLAGS) -o $(BIN_DIR)/$(EXE) -m $(BIN_DIR)/$(MAP)
-	cat $(MAP)
+	rgbasm $(SOURCES_COLLECTED) $(ASM_FLAGS) -o $(BIN_DIR)/$(OBJ)
+	rgblink $(BIN_DIR)/$(OBJ) $(L_FLAGS) -o $(BIN_DIR)/$(EXE) -m $(BIN_DIR)/$(MAP)
+	cat $(BIN_DIR)/$(MAP)
 
