@@ -1,7 +1,7 @@
 INCLUDE "hardware.inc"
 
 /*******************************************************
-* CARTRIDGE HEADER
+* BOOTROM & CARTRIDGE HEADER
 * Populated by the rgbfix tool
 ********************************************************/
 SECTION "BootROM", ROM0[$000]
