@@ -10,3 +10,6 @@ ROM0
     FLOATING
     "MainLoop"
 
+    ALIGN 1
+    "StandardLibrary"
+

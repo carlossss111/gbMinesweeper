@@ -32,7 +32,7 @@ clean:
 	rm bin/* 2> /dev/null || true 
 
 run: compile
-	EMulicious $(BIN_DIR)/$(EXE)
+	emulicious $(BIN_DIR)/$(EXE)
 
 run-sameboy: compile
 	sameboy $(BIN_DIR)/$(EXE)

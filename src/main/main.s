@@ -26,6 +26,15 @@ ENDSECTION
 ********************************************************/
 SECTION "Init", ROM0
 EntryPoint:
+    ; Turn off audio until I know how to implement it
+    xor a
+	ld [rNR52], a               ; set audio register
+
+    ; Load title screen
+    
+
+
+    
     halt
 ENDSECTION
 
