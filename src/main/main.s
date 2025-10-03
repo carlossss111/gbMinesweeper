@@ -1,17 +1,10 @@
 INCLUDE "hardware.inc"
 
 /*******************************************************
-* BOOTROM & CARTRIDGE HEADER
+* CARTRIDGE HEADER
 * Populated by the rgbfix tool
 ********************************************************/
-SECTION "BootROM", ROM0[$000]
-
-	ds $100
-
-ENDSECTION
-
-
-SECTION "Header", ROM0[$100]
+SECTION "Header", ROM0[$0100]
 
 	jp EntryPoint
 
@@ -19,23 +12,25 @@ SECTION "Header", ROM0[$100]
 
 ENDSECTION
 
-
 /*******************************************************
 * INITIALISATION
 * Copies memory to where it needs to be
 ********************************************************/
 SECTION "Init", ROM0
+
+; Global entrypoint for the program
+; @uses all registers
 EntryPoint:
-    ; Turn off audio until I know how to implement it
+    ld sp, $E000                ; set stack pointer
+
     xor a
-	ld [rNR52], a               ; set audio register
+	ld [rNR52], a               ; turn off audio
 
-    ; Load title screen
+    call SetVBlankInterruptOnly ; set vblank only
+    ei                          ; enable interrupts
     
+    jp Main                     ; jump to the main loop
 
-
-    
-    halt
 ENDSECTION
 
 
@@ -44,7 +39,12 @@ ENDSECTION
 * The main event loop for the program
 ********************************************************/
 SECTION "MainLoop", ROM0
+
+; Main loop that each game state returns to upon finishing
+; @uses all registers
 Main:
-    halt
+    halt                        ; wait until a vblank interrupt
+    jp Main
+
 ENDSECTION
 

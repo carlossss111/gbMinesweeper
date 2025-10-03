@@ -1,6 +1,9 @@
 
 ; Read Only Memory
 ROM0
+    ORG $040
+    "VBlankInterrupt"
+
     ORG $100
     "Header"
 
@@ -10,6 +13,9 @@ ROM0
     FLOATING
     "MainLoop"
 
-    ALIGN 1
+    FLOATING
     "StandardLibrary"
+
+    FLOATING 
+    "VBlankHandler"
 
